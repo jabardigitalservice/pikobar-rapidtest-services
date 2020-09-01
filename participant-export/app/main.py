@@ -43,7 +43,13 @@ def calculate_age(birth_date):
 @app.route('/', methods=['GET'])
 def index():
     mysqldb.ping(reconnect=True)
+    return {
+        "status": "OK"
+    }
 
+
+@app.route('/export', methods=['GET'])
+def export():
     rdt_event_id = request.args.get('rdt_event_id')
 
     event = get_event(rdt_event_id)
