@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, json
 from flask import request
+import logging
 
 import flask_excel as excel
 import pymysql
@@ -8,7 +9,7 @@ from datetime import date, timezone
 import pytz
 
 app = Flask(__name__)
-excel.init_excel(app)
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s")
 
 mysqldb = pymysql.connect(
     host=os.environ['DB_HOST'],
@@ -43,6 +44,8 @@ def calculate_age(birth_date):
 @app.route('/', methods=['GET'])
 def index():
     mysqldb.ping(reconnect=True)
+    logging.debug("HEALTH_CHECK_OK")
+
     return {
         "status": "OK"
     }
@@ -51,6 +54,7 @@ def index():
 @app.route('/export', methods=['GET'])
 def export():
     rdt_event_id = request.args.get('rdt_event_id')
+    logging.debug("REQUEST_EXPORT: EVENT_ID " + rdt_event_id)
 
     event = get_event(rdt_event_id)
 
@@ -74,6 +78,7 @@ def export():
     ]
 
     for record in mycursor.fetchall():
+        logging.debug("EVENT_ID: " + rdt_event_id + ", ROW: " + json.dumps(record))
         age = None
 
         birth_date = record['birth_date']
@@ -153,5 +158,5 @@ def export():
 
 
 if __name__ == "__main__":
-    # Only for debugging while developing
+    excel.init_excel(app)
     app.run(host='0.0.0.0', debug=True)
