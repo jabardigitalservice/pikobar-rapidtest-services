@@ -68,6 +68,7 @@ def export():
           "JOIN areas e ON b.village_code = e.code_kemendagri " \
           "WHERE a.rdt_event_id = %s"
     mycursor.execute(sql, (rdt_event_id,))
+    mysqldb.commit()
 
     rows = [
         ['NOMOR PESERTA', 'ID EVENT', 'ID KLOTER', 'NAMA KEGIATAN', 'PENYELENGGARA', 'NIK', 'NAMA', 'NOMOR TELEPON',
