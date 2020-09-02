@@ -116,7 +116,7 @@ def export():
             record['rdt_event_id'],
             record['rdt_event_schedule_id'],
             event['event_name'].upper(),
-            event['host_name'].upper() if event['host_name'].upper() else None,
+            event['host_name'].upper() if event['host_name'] else None,
             record['nik'],
             record['name'].upper(),
             record['phone_number'],
