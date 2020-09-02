@@ -53,6 +53,7 @@ def index():
 
 @app.route('/export', methods=['GET'])
 def export():
+    mysqldb.ping(reconnect=True)
     rdt_event_id = request.args.get('rdt_event_id')
     logging.debug("REQUEST_EXPORT: EVENT_ID " + rdt_event_id)
 
