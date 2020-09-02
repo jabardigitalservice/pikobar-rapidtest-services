@@ -78,7 +78,7 @@ def export():
     ]
 
     for record in mycursor.fetchall():
-        logging.debug("EVENT_ID: " + rdt_event_id + ", ROW: " + json.dumps(record))
+        # logging.debug("EVENT_ID: " + rdt_event_id + ", ROW: " + json.dumps(record))
         age = None
 
         birth_date = record['birth_date']
