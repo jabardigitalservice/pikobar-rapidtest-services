@@ -1,5 +1,9 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.8
+FROM python:3.6.5-alpine
 
-COPY ./app /app
+WORKDIR /app
 
-RUN pip3 install pymysql flask_excel pyexcel-xlsx pytz
+ADD ./app /app
+
+RUN pip3 install install -r requirements.txt
+
+CMD ["python", "main.py"]
