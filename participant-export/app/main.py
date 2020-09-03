@@ -63,9 +63,9 @@ def export():
           "b.created_at as registered_datetime " \
           "FROM rdt_invitations a " \
           "JOIN rdt_applicants b ON a.rdt_applicant_id = b.id " \
-          "JOIN areas c ON b.city_code = c.code_kemendagri " \
-          "JOIN areas d ON b.district_code = d.code_kemendagri " \
-          "JOIN areas e ON b.village_code = e.code_kemendagri " \
+          "LEFT JOIN areas c ON b.city_code = c.code_kemendagri " \
+          "LEFT JOIN areas d ON b.district_code = d.code_kemendagri " \
+          "LEFT JOIN areas e ON b.village_code = e.code_kemendagri " \
           "WHERE a.rdt_event_id = %s"
     mycursor.execute(sql, (rdt_event_id,))
     mysqldb.commit()
